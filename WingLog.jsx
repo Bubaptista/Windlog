@@ -1080,6 +1080,23 @@ export default function WingLog() {
     }
   };
 
+  const isEnvMissing = !import.meta.env.VITE_SUPABASE_URL || !import.meta.env.VITE_SUPABASE_ANON_KEY;
+
+  if (isEnvMissing) {
+    return (
+      <div className="app">
+        <div className="content" style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", height: "100vh", padding: 20, textAlign: "center" }}>
+          <div style={{ fontSize: 40, marginBottom: 20 }}>🛑</div>
+          <div style={{ fontSize: 18, fontWeight: 700, color: "var(--orange)", marginBottom: 10 }}>Configuration Error</div>
+          <div style={{ fontSize: 14, color: "var(--text)", lineHeight: 1.6 }}>
+            Supabase environment variables are missing from the build.
+            Please ensure <strong>VITE_SUPABASE_URL</strong> and <strong>VITE_SUPABASE_ANON_KEY</strong> are set in Railway's variables and then <strong>re-deploy</strong> the project.
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   const navItems = [
     { id: "log", label: "Log", icon: <IconLog /> },
     { id: "history", label: "History", icon: <IconHistory /> },
